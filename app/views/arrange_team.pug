@@ -1,0 +1,29 @@
+extends layout
+
+block content
+    h1 #{title}
+    div(class="row")
+        h2 Budget: #{budget}
+    div(class="row")
+        h3 Filter
+    div(class="row")
+        select(class="form-control")
+            each team, i in teams
+                option= team
+    div(class="row")
+        table.table
+            thead
+                tr
+                    th(scope="col")="#"
+                    th(scope="col")="Name"
+                    th(scope="col")="Position"
+                    th(scope="col")="Detail"
+                    
+            tbody
+            each footballer, i in footballers
+                tr
+                th(scope="col")=(i+1)
+                td
+                    a(href="/footballers/"+footballer.id)= footballer.name
+                td= footballer.positionText
+                td= footballer.playedPositions

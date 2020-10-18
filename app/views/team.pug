@@ -1,0 +1,63 @@
+extends layout
+
+block content
+    script(src='../js/footballer_dragger.js') 
+    h1 #{title}
+    div(class="row")
+        h2 Budget: #{budget}
+    div(class="row")
+        div(class="col-sm-10")
+            div(class="row ffield")
+                div(class="row align-items-center ffield-part-row-gk", id="gk")
+                    div(class="col-sm-12 align-items-center")
+                        div(class="ffield-part-box", id="gk", value="Kaleci", ondrop="onDrop(event);", ondragover="onDragOver(event);", ondragleave="onDragLeave(event);")
+                div(class="row align-items-center ffield-part-row", id="f1")
+                    div(class="col-sm-3 align-items-center")
+                        div(class="ffield-part-box", id="f1-r", ondrop="onDrop(event);", ondragover="onDragOver(event);", ondragleave="onDragLeave(event);")
+                    div(class="col-sm-6 align-items-center")
+                        div(class="ffield-part-box", id="f1-m", ondrop="onDrop(event);", ondragover="onDragOver(event);", ondragleave="onDragLeave(event);")
+                    div(class="col-sm-3 align-items-center")
+                        div(class="ffield-part-box", id="f1-l", ondrop="onDrop(event);", ondragover="onDragOver(event);", ondragleave="onDragLeave(event);")
+                div(class="row align-items-center ffield-part-row", id="field2")
+                    div(class="col-sm-3 align-items-center")
+                        div(class="ffield-part-box", id="f2-r", ondrop="onDrop(event);", ondragover="onDragOver(event);", ondragleave="onDragLeave(event);")
+                    div(class="col-sm-6 align-items-center")
+                        div(class="ffield-part-box", id="f2-m", ondrop="onDrop(event);", ondragover="onDragOver(event);", ondragleave="onDragLeave(event);")
+                    div(class="col-sm-3 align-items-center")
+                        div(class="ffield-part-box", id="f2-l", ondrop="onDrop(event);", ondragover="onDragOver(event);", ondragleave="onDragLeave(event);")
+                div(class="row align-items-center ffield-part-row", id="field3")
+                    div(class="col-sm-3 align-items-center")
+                        div(class="ffield-part-box", id="f3-r", ondrop="onDrop(event);", ondragover="onDragOver(event);", ondragleave="onDragLeave(event);")
+                    div(class="col-sm-6 align-items-center")
+                        div(class="ffield-part-box", id="f3-m", ondrop="onDrop(event);", ondragover="onDragOver(event);", ondragleave="onDragLeave(event);")
+                    div(class="col-sm-3 align-items-center")
+                        div(class="ffield-part-box", id="f3-l", ondrop="onDrop(event);", ondragover="onDragOver(event);", ondragleave="onDragLeave(event);")
+                div(class="row align-items-center ffield-part-row", id="field4")
+                    div(class="col-sm-3 align-items-center")
+                        div(class="ffield-part-box", id="f4-r", ondrop="onDrop(event);", ondragover="onDragOver(event);", ondragleave="onDragLeave(event);")
+                    div(class="col-sm-6 align-items-center")
+                        div(class="ffield-part-box", id="f4-m", ondrop="onDrop(event);", ondragover="onDragOver(event);", ondragleave="onDragLeave(event);")
+                    div(class="col-sm-3 align-items-center")
+                        div(class="ffield-part-box", id="f4-l", ondrop="onDrop(event);", ondragover="onDragOver(event);", ondragleave="onDragLeave(event);")
+        div(class="col-sm-2 align-items-center")
+            div(class="row align-items-center" id="Add_footballer_div")
+                Button(class="add-footballer-button" id="Add_footballer_button", onClick="window.location.href='/team/arrange';") Arrange Squad
+            div(class="row team-list" id="team_list_div")
+            each footballer, i in footballers
+                div(class="footballer-box", ondragstart="onDragStart(event);", id= footballer.id, draggable="true")= footballer.name     
+    div(class="row")
+        table.table
+            thead
+                tr
+                    th(scope="col")="#"
+                    th(scope="col")="Name"
+                    th(scope="col")="Rating"
+            tbody
+            each footballer, i in footballers
+                tr
+                th(scope="col")=(i+1)
+                td
+                    a(href="/footballers/"+footballer.id)= footballer.name
+                td= footballer.rating
+                
+    
