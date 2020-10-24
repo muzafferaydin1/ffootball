@@ -75,6 +75,21 @@
   font-size: small;
   color: white;
 }
+.inline-button {
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: 2px solid #3c763d;
+  background-color: #39923b;
+  padding: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: 10px;  
+  font-family: "Courier New";
+  font-size: small;
+  color: white;
+}
 
 
 .team-list {

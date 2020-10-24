@@ -1,15 +1,28 @@
 extends layout
 
 block content
+    script(src='/js/arrange_team_ops.js')
     h1 #{title}
     div(class="row")
         h2 Budget: #{budget}
     div(class="row")
         h3 Filter
     div(class="row")
-        select(class="form-control")
-            each team, i in teams
-                option= team
+        div(class="col-sm-3")
+            h4 Team
+        div(class="col-sm-3")
+            h4 Position
+    div(class="row")
+        div(class="col-sm-3")
+            select(id="Team_Option" class="form-control")
+                each team, i in teams
+                    option( value= team.teamId)= team.teamName
+        div(class="col-sm-3")
+            select(id="Position_Option" class="form-control")
+                each position, i in positions
+                    option( value= position.positionId)= position.position
+        div(class="col-sm-3")
+            Button(class="inline-button" id="Add_footballer_button", onClick="applyFilterBtnClick(event)") Apply Filter
     div(class="row")
         table.table
             thead
@@ -17,8 +30,10 @@ block content
                     th(scope="col")="#"
                     th(scope="col")="Name"
                     th(scope="col")="Position"
+                    th(scope="col")="Team"
                     th(scope="col")="Detail"
-                    
+    
+     
             tbody
             each footballer, i in footballers
                 tr
@@ -26,4 +41,5 @@ block content
                 td
                     a(href="/footballers/"+footballer.id)= footballer.name
                 td= footballer.positionText
+                td= footballer.teamName
                 td= footballer.playedPositions

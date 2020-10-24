@@ -27,7 +27,8 @@ function getTempTextFromId(id) {
     case "f4-l":
       return "Sol Forvet";
   }
-}function onDragStart(event) {
+}
+function onDragStart(event) {
   console.log("onDragStart");
   event.dataTransfer.setData("text/plain", event.target.id);
 }
@@ -55,6 +56,7 @@ function onDragOver(event) {
   
   event.preventDefault();
 }
+
 function onDragLeave(event) {
   console.log("onDragOver");
   event.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0)";
@@ -84,3 +86,4 @@ function onDrop(event) {
 
   event.dataTransfer.clearData();
 }
+

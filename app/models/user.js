@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+
 const user_footballer = mongoose.Schema({
   id: Number
 });

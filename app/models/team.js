@@ -1,4 +1,5 @@
 let mongoose = require("mongoose");
+mongoose.Promise = global.Promise;
 
 // Article Schema
 let teamSchema = mongoose.Schema({
@@ -17,6 +18,6 @@ let teamSchema = mongoose.Schema({
 });
 
 let Team = (module.exports = mongoose.model(
-  "teams",
+  "Team",
   teamSchema
 ));

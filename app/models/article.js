@@ -1,4 +1,5 @@
 let mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 
 // Article Schema
 let articleSchema = mongoose.Schema({
