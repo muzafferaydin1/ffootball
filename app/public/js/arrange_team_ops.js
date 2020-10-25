@@ -18,3 +18,9 @@ function applyFilterBtnClick(event){
         window.location.href='/team/arrange';
     }    
 }
+
+function addFootballerOnClick(footballerId){
+    console.log("footballerId: " + footballerId);
+    if(footballerId != 0 && footballerId != "")
+        window.location.href='/team/add_footballer/fId/' + footballerId;
+}

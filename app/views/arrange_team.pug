@@ -14,6 +14,24 @@ block content
     div(class="row")
         h2 Budget: #{budget}
     div(class="row")
+        table(id="currentFootballer_Table").table
+            thead
+                tr
+                    th(scope="col")="#"
+                    th(scope="col")="Name"
+                    th(scope="col")="Position"
+                    th(scope="col")="Team"
+                    th(scope="col")="Detail"
+            tbody
+                each current_footballer, i in current_footballers
+                    tr
+                        th(scope="col")=(i+1)
+                        td
+                            a(href="/footballers/"+current_footballer.id)= current_footballer.name
+                        td= current_footballer.positionText
+                        td= current_footballer.teamName
+                        td= current_footballer.playedPositions
+    div(class="row")
         h3 Filter
     div(class="row")
         div(class="col-sm-3")
@@ -35,7 +53,6 @@ block content
         table(id="Footballer_Table").table
             thead
                 tr
-                    th(scope="col")="#"
                     th(scope="col")="Name"
                     th(scope="col")="Position"
                     th(scope="col")="Team"
@@ -43,9 +60,15 @@ block content
             tbody
                 each footballer, i in footballers
                     tr
-                        th(scope="col")=(i+1)
-                        td
+                        th(scope="col")
                             a(href="/footballers/"+footballer.id)= footballer.name
                         td= footballer.positionText
                         td= footballer.teamName
-                        td= footballer.playedPositions
+                        td
+                            - var existInCurrentList = false
+                            each current_footballer, i in current_footballers
+                                if current_footballer.id == footballer.id
+                                    - existInCurrentList=true                                    
+                            if !existInCurrentList
+                                Button(class="inline-button" id="Add_footballer_button" value=footballer.id onClick="addFootballerOnClick(this.value)") Sign
+                        

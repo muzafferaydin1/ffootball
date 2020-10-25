@@ -194,62 +194,67 @@ async function genericArrangeRouter(req, res, tId, pId) {
 
   var footballerIds = req.user.footballers;
   
-  var footballers = {
+  var currentFootballers = {
     list: []
   };
   
   var fbCnt = footballerIds.length;
   if(!fbCnt){
-    console.log("Footballer =" + JSON.stringify(footballers));
+    console.log("Footballer =" + JSON.stringify(currentFootballers));
     
     res.render("arrange_team", {
       title: req.user.name,
       budget: gBudget,
       teams: teams.list,
       positions: positions.list,
-      footballers: allFootballers.list
+      footballers: allFootballers.list,
+      current_footballers: currentFootballers.list
     });
   }
-  for(var i = 0; i < footballerIds.length; i++){
-    var fbId = footballerIds[i];
-    console.log("fbObj=" + fbId);
-    Footballer.findOne({id: fbId}, function(err, result) {
-      
-      if (err) {
-        console.log(err);
-      } else {
-        footballers.list.push({ 
-          "id" : result.id,
-          "name"  : result.name,
-          "firstName"  : result.firstName,
-          "lastName"  : result.lastName,
-          "teamId"  : result.teamId,
-          "teamName"       : result.teamName,
-          "playedPositions"       : result.playedPositions,
-          "positionText"       : result.positionText,
-          "height"       : result.height,
-          "weight"       : result.weight,
-          "age"       : result.age,
-          "minsPlayed"       : result.minsPlayed,
-          "rating"       : result.rating
-        });
-      }
-      
-    })
-    .then(function (doc) {
-      fbCnt--;
-      if(fbCnt==0){
-        console.log("Footballer =" + JSON.stringify(footballers));
-        res.render("arrange_team", {
-          title: req.user.name,
-          budget: gBudget,
-          footballers: footballers.list,
-          teams: teams,
-          positions: positions
-        });
-      }
-    });
+  else{
+    for(var i = 0; i < footballerIds.length; i++){
+      var fbId = footballerIds[i];
+      console.log("fbObj=" + fbId);
+      Footballer.findOne({id: fbId}, function(err, result) {
+        
+        if (err) {
+          console.log(err);
+        } else {
+          currentFootballers.list.push({ 
+            "id" : result.id,
+            "name"  : result.name,
+            "firstName"  : result.firstName,
+            "lastName"  : result.lastName,
+            "teamId"  : result.teamId,
+            "teamName"       : result.teamName,
+            "playedPositions"       : result.playedPositions,
+            "positionText"       : result.positionText,
+            "height"       : result.height,
+            "weight"       : result.weight,
+            "age"       : result.age,
+            "minsPlayed"       : result.minsPlayed,
+            "rating"       : result.rating
+          });
+        }
+        
+      })
+      .then(function (doc) {
+        fbCnt--;
+        if(fbCnt==0){
+          console.log("Footballer =" + JSON.stringify(currentFootballers));
+          res.render("arrange_team", {
+            title: req.user.name,
+            budget: gBudget,
+            teams: teams.list,
+            positions: positions.list,
+            footballers: allFootballers.list,
+            current_footballers: currentFootballers.list
+          });
+        }
+      });
+    }
   }
+  
 }
 
 function getPositionText(pId){
@@ -288,16 +293,16 @@ router.get("/add_footballer/fId/:fId", ensureAuthenticated, async function (req,
   console.log("req.user._id: " + req.user._id);
   console.log("req.user.name: " + req.user.name);
   
-  User.update(
+  await User.update(
     { _id: req.user._id }, 
     { $push: { footballers: footballerId }},
     { upsert: true }
-  ).then(function (doc) {
-    res.writeHead(302, {
-      'Location': '/'
-    });
-    res.end();
+  );
+  res.writeHead(302, {
+    'Location': '/team/arrange'
   });
+  res.end();
+  
   
 });
 
