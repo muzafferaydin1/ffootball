@@ -2,6 +2,14 @@ extends layout
 
 block content
     script(src='/js/arrange_team_ops.js')
+    
+    script.
+        $(function() {
+            $("#Footballer_Table").dataTable({
+                "iDisplayLength": 10,
+                "aLengthMenu": [[10, 25, 50, 100,  -1], [10, 25, 50, 100, "All"]]
+            });
+        });
     h1 #{title}
     div(class="row")
         h2 Budget: #{budget}
@@ -24,7 +32,7 @@ block content
         div(class="col-sm-3")
             Button(class="inline-button" id="Add_footballer_button", onClick="applyFilterBtnClick(event)") Apply Filter
     div(class="row")
-        table.table
+        table(id="Footballer_Table").table
             thead
                 tr
                     th(scope="col")="#"
@@ -32,14 +40,12 @@ block content
                     th(scope="col")="Position"
                     th(scope="col")="Team"
                     th(scope="col")="Detail"
-    
-     
             tbody
-            each footballer, i in footballers
-                tr
-                th(scope="col")=(i+1)
-                td
-                    a(href="/footballers/"+footballer.id)= footballer.name
-                td= footballer.positionText
-                td= footballer.teamName
-                td= footballer.playedPositions
+                each footballer, i in footballers
+                    tr
+                        th(scope="col")=(i+1)
+                        td
+                            a(href="/footballers/"+footballer.id)= footballer.name
+                        td= footballer.positionText
+                        td= footballer.teamName
+                        td= footballer.playedPositions
