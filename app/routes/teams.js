@@ -298,11 +298,7 @@ router.get("/add_footballer/fId/:fId", ensureAuthenticated, async function (req,
     { $push: { footballers: footballerId }},
     { upsert: true }
   );
-  res.writeHead(302, {
-    'Location': '/team/arrange'
-  });
-  res.end();
-  
+  res.redirect('/team/arrange'); 
   
 });
 

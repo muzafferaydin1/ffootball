@@ -1,9 +1,6 @@
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-const user_footballer = mongoose.Schema({
-  id: Number
-});
 // User Schema
 const UserSchema = mongoose.Schema({
   name:{
@@ -26,8 +23,16 @@ const UserSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  footballers:{
-    type: [String]
+  teams:{
+    type: [{
+      weekId: {
+        type: Number,
+        required: true,
+      },
+      footballers:{
+        type: [String]
+      }
+    }]
   }
 });
 

@@ -118,11 +118,13 @@ app.get("/", function (req, res) {
 
 // Route Files
 let articles = require("./routes/articles");
+let apis = require("./routes/apis");
 let team = require("./routes/teams");
 let users = require("./routes/users");
 app.use("/articles", articles);
 app.use("/users", users);
 app.use("/team", team);
+app.use("/apis", apis);
 
 // Start Server
 app.listen(3000, function () {
